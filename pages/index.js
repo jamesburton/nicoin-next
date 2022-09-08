@@ -2,9 +2,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useWeb3Context } from "contexts/web3Context";
+import Button from '@mui/material/Button';
+import { useRef } from 'react';
 
 export default function Home() {
-  const { example } = useWeb3Context();
+  //const { example } = useWeb3Context();
+  const { network, web3Ref, web3Ready, address, balance, setAddress } = useWeb3Context();
+  const addressRef = useRef();
 
   return (
     <div className={styles.container}>
@@ -14,9 +18,63 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <p>
+      <div>
+        <strong>Web3 Ready?: </strong>
+        {(!!web3Ready).toString()}
+      </div>
+      <div>
+        <strong>Network: </strong>
+        {network ?? typeof network}
+      </div>
+
+      {/* <p>
         Example Value: {example}
-      </p>
+      </p> */}
+
+      {network && <>
+        {address && <div>
+          <h3>Address</h3>
+          <div><strong>{address}</strong></div>
+          {balance && <div>
+            <strong>Balance: </strong>
+            {balance}
+          </div>}
+          <Button onClick={() => setAddress()} color="error">Remove</Button>
+        </div>}
+
+        {!address && <div>
+          <input ref={addressRef} placeholder="Address... e.g. 0x..." style={{width:'100%'}} />
+          <Button onClick={() => setAddress(addressRef.current.value)}>Set Address</Button>
+        </div>}
+
+        <h3>Properties</h3>
+        {web3Ready && <div>
+          <div>
+            <strong>Network: </strong>
+            {network}
+          </div>
+          <h4>web3 properties</h4>
+          <ul>
+            {Object.getOwnPropertyNames(web3Ref.current).map((p,i) => <li key={i}>{p}</li>)}
+          </ul>
+          <h4>web3.currentProvider properties</h4>
+          <ul>
+            {Object.getOwnPropertyNames(web3Ref.current.currentProvider).map((p,i) => <li key={i}>{p}</li>)}
+          </ul>
+          <h4>web3.givenProvider properties</h4>
+          <ul>
+            {Object.getOwnPropertyNames(web3Ref.current.givenProvider).map((p,i) => <li key={i}>{p}</li>)}
+          </ul>
+          <h4>web3.eth properties</h4>
+          <ul>
+            {Object.getOwnPropertyNames(web3Ref.current.eth).map((p,i) => <li key={i}>{p}</li>)}
+          </ul>
+          <h4>web3.eth.Contract properties</h4>
+          <ul>
+            {Object.getOwnPropertyNames(web3Ref.current.eth.Contract).map((p,i) => <li key={i}>{p}</li>)}
+          </ul>
+        </div>}
+      </>}
 
       <main className={styles.main}>
         <h1 className={styles.title}>
