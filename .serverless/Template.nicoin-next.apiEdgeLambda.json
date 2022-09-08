@@ -1,0 +1,17 @@
+{
+  "name": "7zxs2ds-c4drhhq",
+  "hash": "vaYTP2MqKCFqNPLTwQeEbAVl7ofBHUI+n6T1b7wUWtQ=",
+  "description": "API Lambda@Edge for Next CloudFront distribution",
+  "memory": 512,
+  "timeout": 10,
+  "code": "/home/james/Development/nicoin-next/.serverless_nextjs/api-lambda",
+  "shims": [],
+  "handler": "index.handler",
+  "runtime": "nodejs12.x",
+  "env": {},
+  "role": {
+    "arn": "arn:aws:iam::194175976246:role/7zxs2ds-hsw0sfq"
+  },
+  "arn": "arn:aws:lambda:us-east-1:194175976246:function:7zxs2ds-c4drhhq",
+  "region": "us-east-1"
+}
