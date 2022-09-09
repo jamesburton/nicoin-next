@@ -7,7 +7,7 @@ import { useRef } from 'react';
 
 export default function Home() {
   //const { example } = useWeb3Context();
-  const { network, web3Ref, web3Ready, address, balance, setAddress } = useWeb3Context();
+  const { network, web3Ref, web3Ready, address, balance, setAddress, contract, niCoinBalance } = useWeb3Context();
   const addressRef = useRef();
 
   return (
@@ -40,6 +40,15 @@ export default function Home() {
             {balance}
           </div>}
           <Button onClick={() => setAddress()} color="error">Remove</Button>
+        </div>}
+
+        {contract && <div>
+          <h3>Contract</h3>
+          <div><strong>{contract}</strong></div>
+          {niCoinBalance && <div>
+            <strong>NiCoin Balance: </strong>
+            {niCoinBalance ?? typeof niCoinBalance}
+          </div>}
         </div>}
 
         {!address && <div>
